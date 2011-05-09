@@ -1,0 +1,14 @@
+<p style="fontweight: bold; margin: auto">
+  <strong><%= @edit_sentence.bungo_line %></strong>
+  <br />
+  <%= @edit_sentence.translation %>
+  <br />
+    
+ <form method="post" action="/edit/<%= @edit_sentence.id %>" accept-charset="utf-8">
+ <input name="_method" type="hidden" value="put"/>
+ <textarea name="trans" id="trans" cols="80" rows="5"><%= @edit_sentence.translation %></textarea>
+ <br />
+ <input type="submit" value="Submit">
+ </form>
+</p>
+

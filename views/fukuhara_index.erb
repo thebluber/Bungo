@@ -1,0 +1,9 @@
+<% @sentences.each do |sentence| %>
+<p>
+  <a href="http://localhost:4567/edit/<%= sentence.id %>">
+  <strong><%= sentence.bungo_line %></strong>
+  </a>
+  <br />
+  <%= sentence.translation %>
+  <%end%>
+</p>
