@@ -2,7 +2,7 @@
 require "rubygems"
 require "dm-core"
 require "dm-migrations"
-DataMapper.setup(:default, "sqlite:///home/jiayi/Dokumente/web/fukuhara.db")
+DataMapper.setup(:default, "sqlite:fukuhara.db")
 
 class Fukuhara 
   include DataMapper::Resource
