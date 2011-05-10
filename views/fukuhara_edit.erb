@@ -4,7 +4,7 @@
   <%= @edit_sentence.translation %>
   <br />
     
- <form method="post" action="/edit/<%= @edit_sentence.id %>" accept-charset="utf-8">
+ <form method="post" action="<%= url "/sentence/#{@edit_sentence.id}/edit" %>" accept-charset="utf-8">
  <input name="_method" type="hidden" value="put"/>
  <textarea name="trans" id="trans" cols="80" rows="5"><%= @edit_sentence.translation %></textarea>
  <br />
