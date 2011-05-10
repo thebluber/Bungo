@@ -1,7 +1,7 @@
 <ol>
   <% @groups.each do |group| %>
   <li>
-     <a href="http://localhost:4567/index/<%= group %>">
+     <a href="<%= url("/group/" + group) %>">
         <strong><%= group %></strong>
      </a>
   </li>
@@ -9,7 +9,7 @@
 </ol>
     
 <br />
-<form method="post" action="/" accept-charset="utf-8">
+<form method="post" action="/group" accept-charset="utf-8">
   <input type="text" placeholder="titel" maxlength="30" id="titel" name="titel" />
   <br />
   <textarea cols="80" rows="15" id="txt" name="txt" ></textarea>

@@ -1,6 +1,6 @@
 <% @sentences.each do |sentence| %>
 <p>
-  <a href="http://localhost:4567/edit/<%= sentence.id %>">
+  <a href="<%= url "/sentence/#{sentence.id}/edit" %>">
   <strong><%= sentence.bungo_line %></strong>
   </a>
   <br />

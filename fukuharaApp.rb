@@ -4,51 +4,48 @@ require "./fukuhara.rb"
 require "erb"
 
 get "/" do
+  redirect "/group"
+end
+
+get "/group" do
   @groups = Fukuhara.all.map(&:group).uniq
   erb :start
 end
 
 #text hochladen
 
-post "/" do
-  n = /\n/
-  text = (params[:txt]).to_s
-  nonebreak_str = text.gsub(n, "")
-  line_break = /[。]/  
-  new_str = nonebreak_str.gsub(line_break, "。\n")
-  new_str.each_line do |sentence|
-  Fukuhara.create(:bungo_line => sentence, :group => params[:titel])
-  end
- 
-    redirect "/index/" + text
+post "/group" do
+  text = params[:txt] 
+  titel = params[:titel]
+  Fukuhara.load_text(text, titel)
+  redirect "/index/" + titel 
 end
 
-get "/all/index" do
-  @sentences = Fukuhara.all
+get "/group/:titel" do
+  @sentences = Fukuhara.all(:group => params[:titel])
+  erb :fukuhara_index  
+end
 
+get "/sentence" do
+  @sentences = Fukuhara.all
   erb :fukuhara_index
 end
 
-get "/edit/:id" do 
+get "/sentence/:id/edit" do 
   @edit_sentence = Fukuhara.get(params[:id])
   erb :fukuhara_edit
 end
 
 #Update
-put "/edit/:id" do
+put "/sentence/:id/edit" do
   edit_sentence = Fukuhara.get(params[:id])
   edit_sentence.translation = (params[:trans])
   if edit_sentence.save 
     status 201
-    redirect "/all/index" 
+    redirect to "/group/#{edit_sentence.group}" 
   else
     status 412
-    redirect "/edit/" + edit_sentence.id.to_s
+    redirect to "/sentence/#{edit_sentence.id}/edit"
   end
 end
 
-get "/index/:eachText" do
-  @sentences = Fukuhara.all(:group => params[:eachText])
-  erb :fukuhara_index  
-end
-DataMapper.auto_upgrade!
